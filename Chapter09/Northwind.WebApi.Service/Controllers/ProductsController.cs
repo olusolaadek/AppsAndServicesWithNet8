@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory; // To use IMemoryCache
+
 using Northwind.DataContext;
 using Northwind.EntityModels;
 
@@ -13,10 +15,15 @@ public class ProductsController : ControllerBase
     private readonly NorthwindContext _db;
     private int pageSize = 10;
 
-    public ProductsController(ILogger<ProductsController> logger, NorthwindContext db)
+    private readonly IMemoryCache _memoryCache;
+    private const string OutOfStockProductsKey = "OOSP";
+
+    public ProductsController(ILogger<ProductsController> logger, 
+        NorthwindContext db, IMemoryCache memoryCache)
     {
         _logger = logger;
         _db = db;
+        _memoryCache = memoryCache;
     }
 
     [HttpGet]
@@ -37,7 +44,29 @@ public class ProductsController : ControllerBase
     [Produces(typeof(Product[]))]
     public IEnumerable<Product> GetOutOfStockProducts()
     {
-        return _db.Products.Where(p => p.UnitsInStock == 0 && !p.Discontinued);
+        // Check if the out-of-stock products are already cached
+        if (!_memoryCache.TryGetValue(OutOfStockProductsKey, out Product[]? cachedProducts))
+        {
+            //_logger.LogInformation("Returning cached out-of-stock products");
+            //return cachedProducts;
+            cachedProducts = _db.Products
+                .Where(p => p.UnitsInStock == 0 && !p.Discontinued)
+                .ToArray();
+
+            MemoryCacheEntryOptions cacheOptions = new MemoryCacheEntryOptions
+            {
+                // Set the cache expiration time to 5 minutes
+                SlidingExpiration = TimeSpan.FromMinutes(5),
+                // Set the size of the cache entry to 1 (for example, if you want to limit the number of products cached)
+                Size = cachedProducts.Length
+            };
+            _memoryCache.Set(OutOfStockProductsKey, cachedProducts, cacheOptions);
+        }
+
+        MemoryCacheStatistics? stats = _memoryCache.GetCurrentStatistics();
+
+        _logger.LogInformation($"Memory cache. Total hits: {stats?.TotalHits}. Estimated size: {stats?.CurrentEstimatedSize}");
+        return cachedProducts ?? Enumerable.Empty<Product>();
     }
 
     [HttpGet]

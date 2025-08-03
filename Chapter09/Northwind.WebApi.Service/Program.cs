@@ -1,6 +1,13 @@
 using Northwind.DataContext;
+using Microsoft.Extensions.Caching.Memory;
 
 var builder = WebApplication.CreateBuilder(args);
+// register an implementation for the in-memory cache, configured to store a maximum of 50 products
+builder.Services.AddSingleton<IMemoryCache>( new MemoryCache(new MemoryCacheOptions
+{
+    TrackStatistics = true,
+    SizeLimit = 50 // products
+}));
 
 // Add services to the container.
 
