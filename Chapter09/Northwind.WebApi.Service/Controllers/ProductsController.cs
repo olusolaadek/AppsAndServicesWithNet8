@@ -128,7 +128,13 @@ public class ProductsController : ControllerBase
     [HttpGet("{name}")]
     public IEnumerable<Product> Get(string name)
     {
-        return _db.Products.Where(p => p.ProductName.Contains(name));
+        // Works correctly 1 out of 3 times.
+        if (Random.Shared.Next(1,4) == 1)
+        {
+            return _db.Products.Where(p => p.ProductName.Contains(name));
+        }
+
+        throw new Exception("Randomized fault");
     }
 
     // POST api/products
