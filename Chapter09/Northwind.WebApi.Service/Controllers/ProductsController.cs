@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory; // To use IMemoryCache
+using Microsoft.Extensions.Caching.Distributed; // To use Distributed
 
 using Northwind.DataContext;
 using Northwind.EntityModels;
+using System.Text.Json;
 
 namespace Northwind.WebApi.Service.Controllers;
 
@@ -18,12 +20,16 @@ public class ProductsController : ControllerBase
     private readonly IMemoryCache _memoryCache;
     private const string OutOfStockProductsKey = "OOSP";
 
+    private readonly IDistributedCache _distributedCache;
+    private const string DiscontinuedProductsKey = "DISCP";
+
     public ProductsController(ILogger<ProductsController> logger, 
-        NorthwindContext db, IMemoryCache memoryCache)
+        NorthwindContext db, IMemoryCache memoryCache, IDistributedCache distributedCache)
     {
         _logger = logger;
         _db = db;
         _memoryCache = memoryCache;
+        _distributedCache = distributedCache;
     }
 
     [HttpGet]
@@ -37,6 +43,36 @@ public class ProductsController : ControllerBase
             .OrderBy(Product => Product.ProductId)
             .Skip(((page ?? 1) - 1) * pageSize)
             .Take(pageSize);
+    }
+
+    [HttpGet]
+    [Route("outofstockdistcache")]
+    [Produces(typeof(Product[]))]
+    public IEnumerable<Product> GetDistCacheOutOfStockProducts()
+    {
+        // Try to get the cached value.
+        byte[]? cachedValueBytes = _distributedCache.Get(DiscontinuedProductsKey);
+        Product[]? cachedValue = null;
+
+        if (cachedValueBytes is null)
+        {
+            cachedValue = GetDiscontinuedProductsFromDatabase();
+        }
+        else
+        {
+            cachedValue = JsonSerializer.Deserialize<Product[]?>(cachedValueBytes);
+            if (cachedValue is null)
+            {
+                _logger.LogWarning("Failed to deserialize cached discontinued products.");
+                cachedValue = GetDiscontinuedProductsFromDatabase();
+            }
+            else
+            {
+                _logger.LogInformation("Returning cached discontinued products");
+            }
+        }
+
+        return cachedValue ?? Enumerable.Empty<Product>();
     }
 
     [HttpGet]
@@ -74,7 +110,7 @@ public class ProductsController : ControllerBase
     [Produces(typeof(Product[]))]
     public IEnumerable<Product> GetDiscontinuedProducts()
     {
-        return _db.Products.Where(p =>p.Discontinued);
+        return _db.Products.Where(p => p.Discontinued);
     }
 
     // GET api/products/5
@@ -97,7 +133,7 @@ public class ProductsController : ControllerBase
     {
         _db.Products.Add(product);
         await _db.SaveChangesAsync();
-        return Created($"api/products/{product.ProductId}",product);
+        return Created($"api/products/{product.ProductId}", product);
     }
 
     // PUT api/products/5
@@ -138,5 +174,24 @@ public class ProductsController : ControllerBase
         }
 
         return NotFound();
+    }
+
+    private Product[]? GetDiscontinuedProductsFromDatabase()
+    {
+        Product[]? cachedProducts = _db.Products
+            .Where(product => product.Discontinued)
+            .ToArray();
+
+        DistributedCacheEntryOptions cacheOptions = new ()
+        {
+            // Set the cache expiration time to 5 minutes
+            SlidingExpiration = TimeSpan.FromSeconds(5),
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(20),
+        };
+
+        byte[]? cachedValueBytes = JsonSerializer.SerializeToUtf8Bytes(cachedProducts);
+        _distributedCache.Set(DiscontinuedProductsKey, cachedValueBytes, cacheOptions);
+
+        return cachedProducts;
     }
 }
