@@ -23,7 +23,7 @@ public class ProductsController : ControllerBase
     private readonly IDistributedCache _distributedCache;
     private const string DiscontinuedProductsKey = "DISCP";
 
-    public ProductsController(ILogger<ProductsController> logger, 
+    public ProductsController(ILogger<ProductsController> logger,
         NorthwindContext db, IMemoryCache memoryCache, IDistributedCache distributedCache)
     {
         _logger = logger;
@@ -75,7 +75,7 @@ public class ProductsController : ControllerBase
         return cachedValue ?? Enumerable.Empty<Product>();
     }
 
-    [HttpGet]
+        [HttpGet]
     [Route("outofstock")]
     [Produces(typeof(Product[]))]
     public IEnumerable<Product> GetOutOfStockProducts()
@@ -115,9 +115,13 @@ public class ProductsController : ControllerBase
 
     // GET api/products/5
     [HttpGet("{id:int}")]
+    [ResponseCache(Duration =5, // Cache-Control: max-age=5
+        Location = ResponseCacheLocation.Any, // Cache-Control: public
+        VaryByHeader = "User-Agent" // Vary: User-Agent
+        )]
     public async ValueTask<Product?> Get(int id)
     {
-        return await _db.Products.FindAsync(id);   
+        return await _db.Products.FindAsync(id);
     }
 
     // GET api/products/cha

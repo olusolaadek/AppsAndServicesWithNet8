@@ -5,6 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Register distributed cache services
 builder.Services.AddDistributedMemoryCache();
+builder.Services.AddResponseCaching();
+
 // register an implementation for the in-memory cache, configured to store a maximum of 50 products
 builder.Services.AddSingleton<IMemoryCache>( new MemoryCache(new MemoryCacheOptions
 {
@@ -31,6 +33,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseResponseCaching();
 
 app.UseAuthorization();
 
