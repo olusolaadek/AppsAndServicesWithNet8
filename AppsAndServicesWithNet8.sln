@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.Common.DataContex
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.WebApi.Client.Mvc", "Chapter09\Northwind.WebApi.Client.Mvc\Northwind.WebApi.Client.Mvc.csproj", "{5D8F013B-9695-44B1-A131-5220541623D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.Queue.Models", "Chapter09\Northwind.Queue.Models\Northwind.Queue.Models.csproj", "{5E079406-B25E-4EF4-9FCF-EA665E41E9C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.Queue.Consumer.Console", "Chapter09\Northwind.Queue.Consumer.Console\Northwind.Queue.Consumer.Console.csproj", "{47058720-FAE8-4106-8497-4AB4D1B98017}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
