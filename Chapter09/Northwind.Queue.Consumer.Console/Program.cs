@@ -3,6 +3,7 @@ using Northwind.Queue.Models; // To use ProductQueueMessage.
 using RabbitMQ.Client; // To use ConnectionFactory.
 using RabbitMQ.Client.Events; // To use EventingBasicConsumer.
 using System.Text.Json; // To use JsonSerializer.
+
 string queueName = "product";
 ConnectionFactory factory = new() { HostName = "localhost" };
 using IConnection connection = await factory.CreateConnectionAsync();
