@@ -29,14 +29,17 @@
     }
 
     <form asp-controller="Home" asp-action="SendMessage" method="post">
-        <div>
-            <label for="message">Message</label>
+        <div class="mt-3">
+            <label for="message" class="col-1">Message</label>
             <input id="message" name="message" />
         </div>
-        <div>
-            <label for="productId">Product ID</label>
+        <div class="mt-3">
+            <label class="col-1" for="productId">Product ID</label>
             <input id="productId" name="productId" />
         </div>
-        <input type="submit" value="Send" />
+        <div class="mt-3">
+            <input class="btn btn-outline-primary" type="submit" value="Send" />
+        </div>
+        
     </form>
 </div>
