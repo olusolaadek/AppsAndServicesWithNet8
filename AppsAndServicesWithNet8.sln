@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.36327.8
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11010.61
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "09_Cache_Queue_BGS", "09_Cache_Queue_BGS", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
@@ -24,6 +24,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.Background.Workers", "Chapter09\Northwind.Background.Workers\Northwind.Background.Workers.csproj", "{C668ABDC-FF67-4908-8E74-4780F84205DB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.Background.Hangfire", "Chapter09\Northwind.Background.Hangfire\Northwind.Background.Hangfire.csproj", "{E6DFA4DA-A953-4B97-AE88-6255AD6A492B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05_Multitasking", "05_Multitasking", "{FA556076-47CA-44E6-BC7E-68DB2B92BD62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkingWithTasks", "05_Multitasking\WorkingWithTasks\WorkingWithTasks.csproj", "{15E85155-EF08-4A86-9EE4-E2CC54AC5ABA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10_Function_App", "10_Function_App", "{DF9FF13D-B8BA-4CAB-AC18-8FD3ED3449F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCrontab.Console", "10_Function_Apps\NCrontab.Console\NCrontab.Console.csproj", "{98DBCEA3-9A34-40E1-83BF-CCF50CCBF8F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +75,14 @@ Global
 		{E6DFA4DA-A953-4B97-AE88-6255AD6A492B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6DFA4DA-A953-4B97-AE88-6255AD6A492B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6DFA4DA-A953-4B97-AE88-6255AD6A492B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15E85155-EF08-4A86-9EE4-E2CC54AC5ABA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15E85155-EF08-4A86-9EE4-E2CC54AC5ABA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15E85155-EF08-4A86-9EE4-E2CC54AC5ABA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15E85155-EF08-4A86-9EE4-E2CC54AC5ABA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98DBCEA3-9A34-40E1-83BF-CCF50CCBF8F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98DBCEA3-9A34-40E1-83BF-CCF50CCBF8F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98DBCEA3-9A34-40E1-83BF-CCF50CCBF8F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98DBCEA3-9A34-40E1-83BF-CCF50CCBF8F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +97,8 @@ Global
 		{47058720-FAE8-4106-8497-4AB4D1B98017} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{C668ABDC-FF67-4908-8E74-4780F84205DB} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{E6DFA4DA-A953-4B97-AE88-6255AD6A492B} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{15E85155-EF08-4A86-9EE4-E2CC54AC5ABA} = {FA556076-47CA-44E6-BC7E-68DB2B92BD62}
+		{98DBCEA3-9A34-40E1-83BF-CCF50CCBF8F4} = {DF9FF13D-B8BA-4CAB-AC18-8FD3ED3449F9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {363B34E0-F0EB-4FDE-9399-BDC8CDE40F2B}
