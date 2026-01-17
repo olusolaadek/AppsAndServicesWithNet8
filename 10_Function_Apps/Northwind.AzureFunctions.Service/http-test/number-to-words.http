@@ -1,0 +1,9 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+
+GET http://localhost:5101/admin/functions/NumbersToWordsFunction?amount=1292345
+
+###
+GET http://localhost:5101/api/NumbersToWordsFunction?amount=1292345
+
+###
+GET http://localhost:5101/api/NumbersToWordsFunction?amount=292000.3

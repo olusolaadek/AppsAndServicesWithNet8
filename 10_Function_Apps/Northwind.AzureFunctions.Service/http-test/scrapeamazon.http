@@ -1,0 +1,10 @@
+### Make a manual request to the Timer function.
+###
+GET http://localhost:5101/admin/functions/ScrapeAmazonFunction
+Content-Type: application/json
+{}
+###
+POST http://localhost:5101/admin/functions/ScrapeAmazonFunction
+Content-Type: application/json
+{}
+ 
