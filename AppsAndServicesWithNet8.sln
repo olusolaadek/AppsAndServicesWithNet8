@@ -33,6 +33,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10_Function_App", "10_Funct
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCrontab.Console", "10_Function_Apps\NCrontab.Console\NCrontab.Console.csproj", "{98DBCEA3-9A34-40E1-83BF-CCF50CCBF8F4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.AzureFunctions.Service", "10_Function_Apps\Northwind.AzureFunctions.Service\Northwind.AzureFunctions.Service.csproj", "{E9FCD05E-28C7-40FD-A61E-A1153309F4F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,10 @@ Global
 		{98DBCEA3-9A34-40E1-83BF-CCF50CCBF8F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98DBCEA3-9A34-40E1-83BF-CCF50CCBF8F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98DBCEA3-9A34-40E1-83BF-CCF50CCBF8F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9FCD05E-28C7-40FD-A61E-A1153309F4F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9FCD05E-28C7-40FD-A61E-A1153309F4F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9FCD05E-28C7-40FD-A61E-A1153309F4F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9FCD05E-28C7-40FD-A61E-A1153309F4F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,6 +105,7 @@ Global
 		{E6DFA4DA-A953-4B97-AE88-6255AD6A492B} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{15E85155-EF08-4A86-9EE4-E2CC54AC5ABA} = {FA556076-47CA-44E6-BC7E-68DB2B92BD62}
 		{98DBCEA3-9A34-40E1-83BF-CCF50CCBF8F4} = {DF9FF13D-B8BA-4CAB-AC18-8FD3ED3449F9}
+		{E9FCD05E-28C7-40FD-A61E-A1153309F4F2} = {DF9FF13D-B8BA-4CAB-AC18-8FD3ED3449F9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {363B34E0-F0EB-4FDE-9399-BDC8CDE40F2B}
